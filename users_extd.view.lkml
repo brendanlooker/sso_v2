@@ -1,4 +1,4 @@
-  include: "sso.model.lkml"
+  include: "cheetah.model.lkml"
   include: "users.view.lkml"
 
   view: users_extd {
