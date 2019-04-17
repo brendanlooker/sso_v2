@@ -6,13 +6,15 @@ include: "*.view"
 # datagroup: bb_ramp_case_study_default_datagroup {
 
 
+
+
 explore: order_items {
 
 
-#   access_filter: {
-#     field: products.brand
-#     user_attribute:brand
-#   }
+  access_filter: {
+    field: users.state
+    user_attribute:state
+  }
 #   access_filter: {
 #     field: users.state
 #     user_attribute: brand
@@ -66,6 +68,11 @@ explore: order_items {
 
 explore: users {
 
+  access_filter: {
+    field: users.state
+    user_attribute:state
+  }
+
   # join: period_over_period {
   #   type:cross
   #   # sql_on:${period_over_period.dummy_dim} = ${users.id};;
@@ -108,6 +115,7 @@ group_label: "Cheetah"
 explore: customer_behaviour_fact {
   label: "3) Customer Behaviour"
   group_label: "Cheetah"
+
 
   join: order_items {
     type: left_outer
