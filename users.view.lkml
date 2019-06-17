@@ -19,9 +19,44 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  parameter: state_parameter {
+    allowed_value: {
+      label: "Arizona"
+      value: "Arizona"
+    }
+    allowed_value: {
+      label: "New York"
+      value: "New York"
+    }
+    allowed_value: {
+      label: "All"
+      value: "All"
+    }
+  }
+
+  parameter: city_parameter {
+    type: string
+    allowed_value: {
+      label: "Boston"
+      value: "Boston"
+    }
+    allowed_value: {
+      label: "New York"
+      value: "New York"
+    }
+    allowed_value: {
+      label: "All"
+      value: "All"
+    }
+  }
+
+  filter: test {
+    type: string
+  }
+
   dimension: city {
     type: string
-    sql: ${TABLE}.city ;;
+    sql: ${TABLE}.city;;
     drill_fields: [longitude,latitude]
   }
 
@@ -235,7 +270,7 @@ view: users {
 
   dimension: state {
     type: string
-    sql: ${TABLE}.state ;;
+    sql: ${TABLE}.state;;
     drill_fields: [city]
   }
 

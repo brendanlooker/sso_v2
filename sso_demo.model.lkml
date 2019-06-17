@@ -5,9 +5,11 @@ include: "*.view"
 
 # datagroup: bb_ramp_case_study_default_datagroup {
 
-
-
-
+explore: users_test {
+  sql_always_where: case when {% condition users_test.state_filter %} 'Arizona' {% endcondition %} then 1=1
+        else {% condition users_test.state_filter %} state  {% endcondition %} end ;;
+}
+explore: users_fact {hidden:no view_label:"USERS FACT EXPLORE" label:"USERS FACT EXPLORE"}
 explore: order_items {
 
 
