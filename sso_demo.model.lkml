@@ -60,7 +60,7 @@ explore: order_items {
 #     sql_on: ${ndt_orders.order_id} = ${order_items.order_id} ;;
 #   }
   label: "1) Order Items"
-  group_label: "Cheetah"
+  group_label: "SSO Demo"
 }
 
 # explore: order_items {}
@@ -107,7 +107,7 @@ explore: users {
 #     fields: [inventory_items.cost, inventory_items.average_cost] -- bring in fields needed
 }
 label: "2) Customers"
-group_label: "Cheetah"
+  group_label: "SSO Demo"
 }
 
 
@@ -116,7 +116,7 @@ group_label: "Cheetah"
 
 explore: customer_behaviour_fact {
   label: "3) Customer Behaviour"
-  group_label: "Cheetah"
+  group_label: "SSO Demo"
 
 
   join: order_items {
