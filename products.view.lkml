@@ -15,6 +15,39 @@ view: products {
       url: "http://www.google.com/search?q={{ value }}"
       icon_url: "http://google.com/favicon.ico"
     }
+
+    link: {
+      label: "Drill to Product Dashboard"
+      url: "/dashboards/20?Brand={{ value | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Dashboard2"
+      url: "/dashboards/20?Brand={{ value | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Dashboard3"
+      url: "/dashboards/20?Brand={{ value | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Count Look"
+      # url: "/looks/44??&f[products.brand]={{ value | url_encode }}"
+      url: "/looks/44??&f[products.category]={{ _filters['products.category'] | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Explore"
+      url: "/explore/sso_demo/order_items?fields=products.brand,products.category,products.cost,products.department,products.distribution_center_id,products.product_count&limit=100"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    drill_fields: [department,category]
   }
 
   dimension: category {

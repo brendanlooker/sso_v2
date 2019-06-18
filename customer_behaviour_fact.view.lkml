@@ -94,7 +94,7 @@ group by 1
   measure: customer_lifetime_revenue {
     type: sum
     sql: ${TABLE}.total_revenue ;;
-    value_format_name: usd
+    value_format_name: usd_0
     drill_fields: [detail*]
   }
 
@@ -146,6 +146,8 @@ group by 1
   measure: average_days_since_last_order {
     type: average
     sql: ${TABLE}.days_since_last_order ;;
+    value_format_name: decimal_0
+    drill_fields: [user_id,is_repeat_customer, first_order_date, days_since_last_order]
   }
 
   set: detail {
