@@ -17,10 +17,10 @@ explore: order_items {
     field: users.city
     user_attribute:city
   }
-#   access_filter: {
-#     field: users.state
-#     user_attribute: brand
-#   }
+  access_filter: {
+    field: users.state
+    user_attribute: state
+  }
 
   join: order_items_fact {
     type: inner
