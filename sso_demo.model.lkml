@@ -13,10 +13,10 @@ explore: users_test {
 explore: order_items {
 
 
-  access_filter: {
-    field: users.city
-    user_attribute:city
-  }
+  # access_filter: {
+  #   field: users.city
+  #   user_attribute:city
+  # }
   access_filter: {
     field: users.state
     user_attribute: state
