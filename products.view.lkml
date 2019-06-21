@@ -37,7 +37,7 @@ view: products {
     link: {
       label: "Drill to Product Count Look"
       # url: "/looks/44??&f[products.brand]={{ value | url_encode }}"
-      url: "/looks/44??&f[products.category]={{ _filters['products.category'] | url_encode }}"
+      url: "/looks/44??&f[products.brand]={{ value | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
     }
 
