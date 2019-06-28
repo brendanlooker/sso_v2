@@ -2,6 +2,7 @@ connection: "thelook_events_redshift"
 
 # include all the views
 include: "*.view"
+include: "*.dashboard"
 
 # datagroup: bb_ramp_case_study_default_datagroup {
 
