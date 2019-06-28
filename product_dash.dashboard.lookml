@@ -1,5 +1,5 @@
 - dashboard: products_dashboard
-  title: Products Dashboard
+  title: Products Dashboard LookML
   layout: newspaper
   elements:
   - name: Average Days Since Last Order & Lifetime Revenue by Brand Top 10
