@@ -5,7 +5,8 @@ view: ranking_v2 {
         country.country, country.country_rank,
         city.city,
         city.city_rank,
-        city.gross_sales_after_discount
+        city.gross_sales_after_discount,
+        city.orders
 
 from
 
@@ -13,12 +14,21 @@ from
 
             country_grouping.{% parameter country_grouping %} as country_group,
             shopify_orders_shipping_address.country  AS shipping_country,
-            shopify_orders_shipping_address.city  AS city,
+            city_mapping."city standardised"  AS city,
             COALESCE(SUM(shopify_orders_line_items.price), 0) AS gross_sales_after_discount,
+            COALESCE(COUNT(shopify_orders.id), 0) AS orders,
             {% if ranking_v2.country._in_query %}
-            row_number() OVER (PARTITION BY shipping_country ORDER BY gross_sales_after_discount DESC) AS city_rank
+                {% if ranking_v2.total_gross_sales_after_discount._in_query %}
+                    row_number() OVER (PARTITION BY shipping_country ORDER BY gross_sales_after_discount DESC) AS city_rank
+                {% else %}
+                    row_number() OVER (PARTITION BY shipping_country ORDER BY orders DESC) AS city_rank
+                {% endif %}
             {% else %}
-            row_number() OVER (ORDER BY gross_sales_after_discount DESC) AS city_rank
+                {% if ranking_v2.total_gross_sales_after_discount._in_query %}
+                    row_number() OVER (ORDER BY gross_sales_after_discount DESC) AS city_rank
+                {% else %}
+                    row_number() OVER (ORDER BY orders DESC) AS city_rank
+                {% endif %}
             {% endif %}
         FROM public.shopify_orders  AS shopify_orders
               LEFT JOIN public.shopify_orders_line_items AS shopify_orders_line_items
@@ -27,6 +37,7 @@ from
               ON shopify_orders.id = shopify_orders_shipping_address.id
               LEFT JOIN public.country_grouping  AS country_grouping
             ON shopify_orders_shipping_address.country = country_grouping.country
+              LEFT JOIN city_mapping on shopify_orders_shipping_address.city = city_mapping.id
         WHERE ({% condition rank_date_filter %} shopify_orders.created_at {% endcondition %} )
         GROUP BY 1,2,3) city
 
@@ -36,7 +47,12 @@ left outer join
 (SELECT
             shopify_orders_shipping_address.country  AS country,
             COALESCE(SUM(shopify_orders_line_items.price), 0) AS total_gross_sales_after_discount_country,
-            row_number() OVER (ORDER BY total_gross_sales_after_discount_country DESC) AS country_rank
+            COALESCE(COUNT(shopify_orders.id), 0) AS orders_country,
+            {% if ranking_v2.total_gross_sales_after_discount._in_query %}
+              row_number() OVER (ORDER BY total_gross_sales_after_discount_country DESC) AS country_rank
+            {% else %}
+              row_number() OVER (ORDER BY orders_country DESC) AS country_rank
+            {% endif %}
         FROM public.shopify_orders  AS shopify_orders
               LEFT JOIN public.shopify_orders_line_items AS shopify_orders_line_items
               ON shopify_orders_line_items.shopify_orders_id = shopify_orders.id
@@ -54,7 +70,12 @@ left outer join
 (SELECT
             country_grouping.{% parameter country_grouping %} as country_group,
             COALESCE(SUM(shopify_orders_line_items.price), 0) AS total_gross_sales_after_discount,
-            row_number() OVER (ORDER BY total_gross_sales_after_discount DESC) AS country_group_rank
+            COALESCE(COUNT(shopify_orders.id), 0) AS orders_country_group,
+            {% if ranking_v2.total_gross_sales_after_discount._in_query %}
+              row_number() OVER (ORDER BY total_gross_sales_after_discount DESC) AS country_group_rank
+            {% else %}
+              row_number() OVER (ORDER BY orders_country_group DESC) AS country_group_rank
+            {% endif %}
         FROM public.shopify_orders  AS shopify_orders
               LEFT JOIN public.shopify_orders_line_items AS shopify_orders_line_items
               ON shopify_orders_line_items.shopify_orders_id = shopify_orders.id
@@ -155,11 +176,19 @@ and {% condition city_rank_filter %} city_rank {% endcondition %}
   }
 
   dimension: gross_sales_after_discount {
+    hidden: yes
     type: number
     sql: ${TABLE}.gross_sales_after_discount ;;
   }
 
+  dimension: orders {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.orders ;;
+  }
+
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [detail*]
   }
@@ -167,6 +196,12 @@ and {% condition city_rank_filter %} city_rank {% endcondition %}
   measure: total_gross_sales_after_discount {
     type: sum
     sql: ${gross_sales_after_discount} ;;
+  }
+
+
+  measure: total_orders {
+    type: sum
+    sql: ${orders} ;;
   }
 
   set: detail {

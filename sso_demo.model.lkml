@@ -5,10 +5,17 @@ include: "*.view"
 
 # datagroup: bb_ramp_case_study_default_datagroup {
 
+datagroup: dv_datagroup {
+  max_cache_age: "12 hours"
+  sql_trigger: select current_date ;;
+}
+
 explore: users_test {
+  persist_with: dv_datagroup
   sql_always_where: case when {% condition users_test.state_filter %} 'Arizona' {% endcondition %} then 1=1
         else {% condition users_test.state_filter %} state  {% endcondition %} end ;;
 }
+
 
 explore: order_items {
 
