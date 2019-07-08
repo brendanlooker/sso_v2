@@ -4,7 +4,6 @@
   elements:
   - name: Average Days Since Last Order & Lifetime Revenue by Brand Top 10
     title: Average Days Since Last Order & Lifetime Revenue by Brand Top 10
-    model: sso_demo
     explore: customer_behaviour_fact
     type: looker_line
     fields: [customer_behaviour_fact.average_days_since_last_order, customer_behaviour_fact.customer_lifetime_revenue,
@@ -63,7 +62,6 @@
     height: 14
   - name: Sales Revenue & Items by Brand Top 10
     title: Sales Revenue & Items by Brand Top 10
-    model: sso_demo
     explore: order_items
     type: looker_column
     fields: [order_items.total_sales, products.brand, order_items.total_gross_revenue,
@@ -116,7 +114,6 @@
     height: 11
   - name: Average Days Since Last Order & Lifetime Revenue by Month
     title: Average Days Since Last Order & Lifetime Revenue by Month
-    model: sso_demo
     explore: customer_behaviour_fact
     type: looker_line
     fields: [customer_behaviour_fact.average_days_since_last_order, customer_behaviour_fact.customer_lifetime_revenue,
@@ -176,7 +173,6 @@
     height: 14
   - name: Product Count
     title: Product Count
-    model: sso_demo
     explore: order_items
     type: single_value
     fields: [products.product_count]
@@ -204,7 +200,6 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: sso_demo
     explore: customer_behaviour_fact
     listens_to_filters: []
     field: products.brand
@@ -214,7 +209,6 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: sso_demo
     explore: order_items
     listens_to_filters: []
     field: products.category
