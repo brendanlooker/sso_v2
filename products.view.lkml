@@ -15,6 +15,8 @@ view: products {
       url: "http://www.google.com/search?q={{ value }}"
       icon_url: "http://google.com/favicon.ico"
     }
+    html: <span style="font-weight: 500">{{rendered_value}}</span>
+    <span style="font-size: 18px">{{ rendered_value }}</span>;;
 
     link: {
       label: "Drill to Product Dashboard"
