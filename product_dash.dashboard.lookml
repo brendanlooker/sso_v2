@@ -1,9 +1,11 @@
 - dashboard: products_dashboard
-  title: Products Dashboard LookML
+  title: Products Dashboard
   layout: newspaper
+  query_timezone: query_saved
   elements:
   - name: Average Days Since Last Order & Lifetime Revenue by Brand Top 10
     title: Average Days Since Last Order & Lifetime Revenue by Brand Top 10
+    #model: sso_demo
     explore: customer_behaviour_fact
     type: looker_line
     fields: [customer_behaviour_fact.average_days_since_last_order, customer_behaviour_fact.customer_lifetime_revenue,
@@ -62,6 +64,7 @@
     height: 14
   - name: Sales Revenue & Items by Brand Top 10
     title: Sales Revenue & Items by Brand Top 10
+    #model: sso_demo
     explore: order_items
     type: looker_column
     fields: [order_items.total_sales, products.brand, order_items.total_gross_revenue,
@@ -114,6 +117,7 @@
     height: 11
   - name: Average Days Since Last Order & Lifetime Revenue by Month
     title: Average Days Since Last Order & Lifetime Revenue by Month
+    #model: sso_demo
     explore: customer_behaviour_fact
     type: looker_line
     fields: [customer_behaviour_fact.average_days_since_last_order, customer_behaviour_fact.customer_lifetime_revenue,
@@ -173,6 +177,7 @@
     height: 14
   - name: Product Count
     title: Product Count
+    #model: sso_demo
     explore: order_items
     type: single_value
     fields: [products.product_count]
@@ -193,6 +198,30 @@
     col: 8
     width: 8
     height: 3
+  - name: Total Sales by Top 10 Brands
+    title: Total Sales by Top 10 Brands
+    #model: sso_demo
+    explore: customer_behaviour_fact
+    type: looker_pie
+    fields: [products.brand, order_items.total_sales]
+    sorts: [order_items.total_sales desc]
+    limit: 10
+    column_limit: 50
+    total: true
+    value_labels: legend
+    label_type: labPer
+    color_application:
+      collection_id: b43731d5-dc87-4a8e-b807-635bef3948e7
+      palette_id: fb7bb53e-b77b-4ab6-8274-9d420d3d73f3
+      options:
+        steps: 5
+        reverse: false
+    series_colors: {}
+    series_types: {}
+    row: 14
+    col: 0
+    width: 15
+    height: 8
   filters:
   - name: Brand
     title: Brand
@@ -200,6 +229,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
+    #model: sso_demo
     explore: customer_behaviour_fact
     listens_to_filters: []
     field: products.brand
@@ -209,6 +239,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
+    #model: sso_demo
     explore: order_items
     listens_to_filters: []
     field: products.category
