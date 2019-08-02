@@ -12,21 +12,21 @@ view: products {
     sql: ${TABLE}.brand ;;
     link: {
       label: "Google {{ value }}"
-      url: "http://www.google.com/search?q={{ value }}"
+      url: "http://www.google.com/search?q={{ value | url_encode }}"
       icon_url: "http://google.com/favicon.ico"
     }
-    html: <span style="font-weight: 500">{{rendered_value}}</span>
-    <span style="font-size: 18px">{{ rendered_value }}</span>;;
+    # html: <span style="font-weight: 500">{{rendered_value}}</span>;;
+    # <span style="font-size: 18px">{{ rendered_value }}</span>;;
 
     link: {
       label: "Drill to Product Dashboard"
-      url: "/dashboards/21?Brand={{ value | url_encode }}"
+      url: "/dashboards/21?Brand={{ value }}"
       icon_url: "https://looker.com/favicon.ico"
     }
 
     link: {
       label: "Drill to Product Dashboard123123123"
-      url: "/dashboards/20?Brand={{ value | url_encode }}"
+      url: "/dashboards/21"
       icon_url: "https://looker.com/favicon.ico"
     }
 
@@ -55,6 +55,7 @@ view: products {
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
+    drill_fields: [department, name]
   }
 
   dimension: cost {
@@ -65,6 +66,7 @@ view: products {
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
+    drill_fields: [name]
   }
 
   dimension: distribution_center_id {
@@ -76,20 +78,30 @@ view: products {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    drill_fields: [retail_price]
   }
 
   dimension: retail_price {
     type: number
     sql: ${TABLE}.retail_price ;;
+    # drill_fields: [product_set*]
   }
 
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
+    drill_fields: [my_set*]
   }
 
   measure: product_count {
     type: count
     drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+  }
+  # set: product_set {
+  #   fields: [brand,department,category,name,retail_price]
+  # }
+
+  set: my_set {
+    fields: [department,retail_price]
   }
 }

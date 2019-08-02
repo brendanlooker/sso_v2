@@ -7,6 +7,10 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  filter: my_filter {
+
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -87,6 +91,7 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
 
   parameter: period_over_period {
     description: "Period-over-Period Options"
@@ -272,6 +277,11 @@ view: users {
     type: string
     sql: ${TABLE}.state;;
     drill_fields: [city]
+
+    link: {
+      label: "Test Link"
+      url: "/dashboards/24?State={{ value }}&Age={{ _filters['users.age'] | url_encode }}&City={{ 'San Francisco' | url_encode }}"
+    }
   }
 
   dimension: state_map {

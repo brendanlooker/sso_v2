@@ -22,7 +22,9 @@ access_grant: my_access {
   allowed_values: ["New York"]
   user_attribute: state
 }
-explore: products {}
+explore: products {
+  # fields:[products.my_set*]
+  }
 explore: order_items {
 
 
@@ -38,6 +40,7 @@ explore: order_items {
     field: users.state
     user_attribute: state
   }
+
 
 
   join: order_items_fact {
@@ -154,6 +157,9 @@ explore: customer_behaviour_fact {
     relationship: many_to_one
   }
 }
+
+
+
 
 # explore: users_fact {
 #   join: order_items {
