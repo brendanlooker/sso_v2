@@ -23,8 +23,22 @@ access_grant: my_access {
   user_attribute: state
 }
 explore: products {
+  view_name: products
   # fields:[products.my_set*]
+  sql_always_where: ${brand} = 'Dockers' ;;
   }
+
+
+# explore: my_entended_explore {
+#   extends: [users,products]
+#   label: "My Extended Explore"
+#   join: products {
+#     from: products
+#     sql_on: ${products.id}=${inventory_items.product_id} ;;
+#     relationship: many_to_one
+#   }
+
+# }
 explore: order_items {
 
 
@@ -49,7 +63,7 @@ explore: order_items {
     sql_on: ${order_items.id}=${order_items_fact.id} ;;
     relationship: one_to_one
     view_label: "Order Items Fact"
-#     fields: [detail*, -order_items_fact.id]
+    fields: [order_items_fact.id]
   }
   join: inventory_items {
     type: left_outer
@@ -91,6 +105,15 @@ explore: order_items {
 ####################################
 
 explore: users {
+
+  always_filter: {
+    filters: {
+      field:users.city
+      value: "Boston"
+    }
+  }
+
+  view_name: users
 
   access_filter: {
     field: users.state
@@ -159,7 +182,7 @@ explore: customer_behaviour_fact {
 }
 
 
-
+explore: inventory_items {}
 
 # explore: users_fact {
 #   join: order_items {

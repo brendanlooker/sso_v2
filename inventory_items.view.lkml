@@ -80,12 +80,42 @@ view: inventory_items {
     ]
     sql: ${TABLE}.sold_at ;;
   }
+  parameter: currency_selector {
+    type: unquoted
+    default_value: "usd"
+    allowed_value: {
+      label: "GBP"
+      value: "gbp"
+    }
+
+    allowed_value: {
+      label: "EUR"
+      value: "eur"
+    }
+
+    allowed_value: {
+      label: "USD"
+      value: "usd"
+    }
+  }
+
 
   measure: total_cost {
     type: sum
     sql: ${cost} ;;
     description: "Total Cost"
-    value_format_name: usd
+    value_format_name: decimal_0
+    html:
+    {% if currency_selector._parameter_value == 'usd' %}
+    ${{rendered_value}}
+    {% elsif currency_selector._parameter_value == 'eur' %}
+    €{{rendered_value}}
+    {% elsif currency_selector._parameter_value == 'gbp' %}
+    £{{rendered_value}}
+    {% else %}
+    X{{rendered_value}}
+    {% endif %}
+    ;;
   }
 
   measure: average_cost {

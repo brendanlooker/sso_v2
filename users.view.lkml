@@ -1,6 +1,9 @@
 view: users {
   sql_table_name: public.users ;;
 
+
+
+
   dimension: id {
     primary_key: yes
     type: number
@@ -319,6 +322,7 @@ view: users {
 
   measure: users_who_have_returned_items {
     type: count_distinct
+    html: {{ products.department }}{{rendered_value}} ;;
     sql: ${id} ;;
     filters: {
       field: order_items.returned_date

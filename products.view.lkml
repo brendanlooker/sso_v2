@@ -10,6 +10,34 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+
+    link: {
+      label: "Drill to Product PieChart Look"
+      url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product BarChart Look"
+      url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product ScatterPlot Look"
+      url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Explore"
+      url: "/explore/sso_demo/order_items?fields=products.brand,products.category,products.cost,products.department,products.distribution_center_id,products.product_count&limit=100"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+
+
+
     link: {
       label: "Google {{ value }}"
       url: "http://www.google.com/search?q={{ value | url_encode }}"
@@ -24,30 +52,8 @@ view: products {
       icon_url: "https://looker.com/favicon.ico"
     }
 
-    link: {
-      label: "Drill to Product Dashboard123123123"
-      url: "/dashboards/21"
-      icon_url: "https://looker.com/favicon.ico"
-    }
 
-    link: {
-      label: "Drill to Product Dashboard3"
-      url: "/dashboards/20?Brand={{ value | url_encode }}"
-      icon_url: "https://looker.com/favicon.ico"
-    }
 
-    link: {
-      label: "Drill to Product Count Look"
-      # url: "/looks/44??&f[products.brand]={{ value | url_encode }}"
-      url: "/looks/44??&f[products.brand]={{ value | url_encode }}"
-      icon_url: "https://looker.com/favicon.ico"
-    }
-
-    link: {
-      label: "Drill to Product Explore"
-      url: "/explore/sso_demo/order_items?fields=products.brand,products.category,products.cost,products.department,products.distribution_center_id,products.product_count&limit=100"
-      icon_url: "https://looker.com/favicon.ico"
-    }
 
     drill_fields: [department,category]
   }
@@ -95,7 +101,8 @@ view: products {
 
   measure: product_count {
     type: count
-    drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+    # drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+    drill_fields: [my_set*]
   }
   # set: product_set {
   #   fields: [brand,department,category,name,retail_price]
