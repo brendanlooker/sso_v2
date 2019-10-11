@@ -106,12 +106,14 @@ explore: order_items {
 
 explore: users {
 
-  always_filter: {
-    filters: {
-      field:users.city
-      value: "Boston"
-    }
-  }
+  persist_for: "0 seconds"
+
+  # always_filter: {
+  #   filters: {
+  #     field:users.city
+  #     value: "Boston"
+  #   }
+  # }
 
   view_name: users
 

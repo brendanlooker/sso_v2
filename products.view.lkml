@@ -12,14 +12,39 @@ view: products {
     sql: ${TABLE}.brand ;;
 
     link: {
-      label: "Drill to Product PieChart Look"
+      label: "Google {{ value }}"
+      url: "http://www.google.com/search?q={{ value | url_encode }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
+
+
+    link: {
+      label: "Drill to Product Dashboard"
+      url: "/dashboards/21?Brand={{ value }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Dashboard2"
+      url: "/dashboards/21?"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Dashboard3"
+      url: "/dashboards/21?Brand={{ value }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+
+    link: {
+      label: "Drill to Product Look"
       url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
       icon_url: "https://looker.com/favicon.ico"
     }
 
     link: {
-      label: "Drill to Product BarChart Look"
-      url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
+      label: "Drill to Product - No Filter"
+      url: "/looks/44?" # Path to Look content
       icon_url: "https://looker.com/favicon.ico"
     }
 
@@ -36,26 +61,68 @@ view: products {
     }
 
 
+    action: {
+      label: "Reach out to {{products.bb_email._value}}"
+      url: "https://hooks.zapier.com/hooks/catch/5803443/o2khmds/"
+      icon_url: "https://www.looker.com/favicon.ico"
+      form_param: {
+        name: "Subject"
+        type: string
+        required:  yes
+        default: "Local Brand"
+      }
+      param: {
+        name: "Email"
+        value: "{{ products.bb_email._value }}"
 
+      }
+      form_param: {
+        name: "Description"
+        type: textarea
+        required: yes
+        default:
+        "{{value}} looks like they were a good brand that have recently churned. Can we reach out to them and see if we can retain them?
 
-    link: {
-      label: "Google {{ value }}"
-      url: "http://www.google.com/search?q={{ value | url_encode }}"
-      icon_url: "http://google.com/favicon.ico"
+        Sent by: {{_user_attributes.email}}."
+      }
+      form_param: {
+        name: "Recipient"
+        type: select
+        default: "Brand Primary Contact"
+        option: {
+          name: " {{ designers_designer.bb_email._value }}"
+          label: "Brand Primary Contact"
+        }
+        option: {
+          name: " {{ designers_designer.bb_email._value }}"
+          label: "Internal Contact"
+        }
+      }
+      form_param: {
+        name: "Send Me a Copy"
+        type: select
+        default: "yes"
+        option: {
+          name: "yes"
+          label: "yes"
+        }
+      }
     }
+
+
+
+
+
     # html: <span style="font-weight: 500">{{rendered_value}}</span>;;
     # <span style="font-size: 18px">{{ rendered_value }}</span>;;
 
-    link: {
-      label: "Drill to Product Dashboard"
-      url: "/dashboards/21?Brand={{ value }}"
-      icon_url: "https://looker.com/favicon.ico"
-    }
 
+    drill_fields: [department,category, name]
+  }
 
-
-
-    drill_fields: [department,category]
+  dimension: bb_email {
+    type: string
+    sql: 'brendan.buckley@looker.com' ;;
   }
 
   dimension: category {

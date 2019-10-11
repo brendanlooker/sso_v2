@@ -1,6 +1,7 @@
 connection: "thelook_events_redshift"
 
 # include all the views
+include: "test.lkml"
 include: "*.view"
 include: "product_dash.dashboard.lookml"
 include: "model.base.lkml"
@@ -28,3 +29,5 @@ datagroup: my_data_group {
 }
 
 explore: users_test_1 {}
+
+explore: users_insights {}

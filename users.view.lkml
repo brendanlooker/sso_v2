@@ -85,6 +85,7 @@ view: users {
       raw,
       time,
       date,
+      day_of_month,
       week,
       month,
       month_name,
@@ -222,9 +223,10 @@ view: users {
 
 
   dimension: days_since_signup {
-    hidden: yes
-    type: number
-    sql: datediff(day,${created_date}, getdate()) ;;
+    # hidden: yes
+    type: duration_day
+    sql_start: case when ${created_date} < '01 Jan 2019' then '01 Jan 2019' else ${created_date} end ;;
+    sql_end: current_date;;
   }
 
   dimension: days_since_signup_tiers {
@@ -354,6 +356,11 @@ view: users {
   measure: average_months_since_signip {
     type: average
     sql: ${months_since_signup} ;;
+  }
+
+  measure: my_constant {
+    type: number
+    sql: 144 ;;
   }
 
   measure: user_count {

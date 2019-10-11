@@ -1,8 +1,8 @@
 test: test_there_are_users {
   explore_source: users {
-    column: count {}
+    column: user_count {}
   }
   assert: there_is_data {
-    expression: ${users.count} > 0 ;;
+    expression: ${users.user_count} > 0 ;;
   }
 }
