@@ -39,6 +39,10 @@ explore: products {
 #   }
 
 # }
+
+named_value_format: brendan {
+  value_format: "0.000,,\" M\""
+}
 explore: order_items {
 
 
@@ -50,10 +54,10 @@ explore: order_items {
   #   user_attribute:city
   # }
 
-  access_filter: {
-    field: users.state
-    user_attribute: state
-  }
+#   access_filter: {
+#     field: users.state
+#     user_attribute: state
+#   }
 
 
 

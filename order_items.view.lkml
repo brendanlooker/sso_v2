@@ -174,6 +174,7 @@ view: order_items {
     sql: (1.0*${number_of_items_returned}/${inventory_items.total_items_sold}) ;;
     description: "Items Returned Rate"
     value_format_name: percent_2
+    html: {{ rendered_value }} || {{ number_of_items_returned._rendered_value }} of total>> ;;
   }
 
   measure: order_item_count {

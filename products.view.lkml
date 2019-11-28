@@ -26,7 +26,7 @@ view: products {
 
     link: {
       label: "Drill to Product Dashboard2"
-      url: "/dashboards/21?"
+      url: "/dashboards/21?Brand={{ value }}&Category={{ _filters['products.category'] | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
     }
 
