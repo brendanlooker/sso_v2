@@ -92,6 +92,18 @@ view: users_test {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: year {
+    type: date
+    sql: ${created_year} ;;
+    drill_fields: [created_month]
+  }
+
+  dimension: month {
+    type: date
+    sql: ${created_month} ;;
+    drill_fields: [created_date]
+  }
+
   parameter: period_over_period {
     description: "Period-over-Period Options"
     type: string

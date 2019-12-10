@@ -29,6 +29,25 @@ view: order_items {
 
   }
 
+
+  dimension: days_in_filter {
+    type: duration_day
+    sql_start: {% date_start created_date %} ;;
+    sql_end: {% date_end created_date %} ;;
+
+  }
+
+  dimension: created_dynamic {
+    label: "{% if created_date._in_query %} Created qweqweqwe
+            {% elsif created_week._in_query %} Created Week
+            {% elsif created_month._in_query %} Created Month
+            {% endif %}"
+    type: string
+    sql: case when ${days_in_filter} < 15 then cast(${created_date} as date)
+              when ${days_in_filter} >= 15 and ${days_in_filter} < 90 then cast (${created_week} as date)
+              when ${days_in_filter} >=90 then cast(${created_month} as date) end;;
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [

@@ -32,7 +32,7 @@ view: products {
 
     link: {
       label: "Drill to Product Dashboard3"
-      url: "/dashboards/21?Brand={{ value }}"
+      url: "/dashboards/21?Brand={{ value }}&Department={{ _filters['products.department'] | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
     }
 
@@ -69,7 +69,7 @@ view: products {
         name: "Subject"
         type: string
         required:  yes
-        default: "Local Brand"
+        default: "Ops"
       }
       param: {
         name: "Email"
@@ -125,6 +125,14 @@ view: products {
     sql: 'brendan.buckley@looker.com' ;;
   }
 
+  dimension: bb_symbol {
+    type: string
+    sql: '' ;;
+    # html: <font color="#00B050">✌</font>;;
+    # html: &#128315 ;; # Red down arrow
+    html: &#x2705 ;; # Green Tick Box
+  }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
@@ -136,10 +144,21 @@ view: products {
     sql: ${TABLE}.cost ;;
   }
 
+  filter: department_filter {
+    type: string
+  }
+
   dimension: department {
     type: string
-    sql: ${TABLE}.department ;;
+#     sql: case when {% condition department_filter %}${TABLE}.department {% endcondition %} then ${TABLE}.department else NULL END;;
+    sql: ${TABLE}.department;;
     drill_fields: [name]
+#     html: {% if _filters['products.department_filter'] ==  %} {{value}} {% else %} All Departments {% endif %} ;;
+  }
+
+  dimension: department_dynamic_title {
+    type: string
+    sql: {% if department._in_query %} ${department} {% else %} 'All Departments' {% endif %};;
   }
 
   dimension: distribution_center_id {
@@ -164,6 +183,11 @@ view: products {
     type: string
     sql: ${TABLE}.sku ;;
     drill_fields: [my_set*]
+  }
+
+  measure: max {
+    type: max
+    sql: ${category} ;;
   }
 
   measure: product_count {
