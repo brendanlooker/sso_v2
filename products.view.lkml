@@ -120,10 +120,10 @@ view: products {
     drill_fields: [department,category, name]
   }
 
-  dimension: bb_email {
-    type: string
-    sql: 'brendan.buckley@looker.com' ;;
-  }
+  # dimension: bb_email {
+  #   type: string
+  #   sql: 'brendan.buckley@looker.com' ;;
+  # }
 
   dimension: bb_symbol {
     type: string

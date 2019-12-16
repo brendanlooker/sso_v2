@@ -7,3 +7,5 @@ include: "*products_dashboard.dashboard"
 # include: "performance_dash.dashboard"
 include: "conditional_formatting_dash.dashboard"
 include: "model.base.lkml"
+
+explore: users_facts_bkw {}
