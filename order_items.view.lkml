@@ -140,7 +140,7 @@ view: order_items {
   }
 
   measure: total_gross_revenue {
-    tags: ["total_gross_revenue"]
+    tags: ["email","brand","total_gross_revenue"]
     type: sum
     sql: ${sale_price} ;;
     filters: {
