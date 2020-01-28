@@ -8,6 +8,7 @@ view: products {
   }
 
   dimension: brand {
+    tags: ["brand"]
     type: string
     sql: ${TABLE}.brand ;;
 
@@ -120,10 +121,11 @@ view: products {
     drill_fields: [department,category, name]
   }
 
-  # dimension: bb_email {
-  #   type: string
-  #   sql: 'brendan.buckley@looker.com' ;;
-  # }
+  dimension: bb_email {
+    type: string
+    sql: 'brendan.buckley@looker.com' ;;
+    tags: ["email"]
+  }
 
   dimension: bb_symbol {
     type: string
