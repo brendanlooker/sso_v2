@@ -12,6 +12,74 @@ view: products {
     type: string
     sql: ${TABLE}.brand ;;
 
+
+    action: {
+      label: "Reach out to {{products.brand}} Brand Manager"
+#         url: "https://hooks.zapier.com/hooks/catch/5803443/ohvj9rp/"
+#       url: "https://hooks.zapier.com/hooks/catch/5803443/o2khmds/"
+#       url: "https://brendanlooker.free.beeceptor.com"
+#       url: "https://hooks.zapier.com/hooks/catch/5803443/ohv7c33/"
+      url: "https://hooks.zapier.com/hooks/catch/5803443/odyunat/"
+      icon_url: "https://www.looker.com/favicon.ico"
+
+
+      form_param: {
+        name: "Subject"
+        type: string
+        required:  yes
+        default: "Brand Analysis"
+      }
+
+      form_param: {
+        name: "Description"
+        type: textarea
+        required: yes
+        default:
+        "{{value}} looks like they were a good brand that have recently churned. Can we reach out to them and see if we can retain them?
+
+        Sent by: {{_user_attributes.email}}."
+      }
+
+      form_param: {
+        name: "Recipient"
+        type: select
+        default: "Brand Primary Contact"
+        option: {
+          name: "Brand Primary Contact"
+          label: "Brand Primary Contact"
+        }
+        option: {
+          name: "Internal Contact"
+          label: "Internal Contact"
+        }
+      }
+      form_param: {
+        name: "Send Me a Copy"
+        type: select
+        default: "yes"
+        option: {
+          name: "yes"
+          label: "Yes"
+        }
+        option: {
+          name: "no"
+          label: "No"
+        }
+      }
+
+      param: {
+        name: "Internal Contact"
+        value: "{{ products.bb_email._value }}"
+      }
+
+      param: {
+        name: "Primary Brand Contanct"
+        value: "{{ products.brand_contact_email._value }}"
+      }
+    }
+
+
+
     link: {
       label: "Google {{ value }}"
       url: "http://www.google.com/search?q={{ value | url_encode }}"
@@ -62,53 +130,7 @@ view: products {
     }
 
 
-    action: {
-      label: "Reach out to {{products.bb_email._value}}"
-      url: "https://hooks.zapier.com/hooks/catch/5803443/o2khmds/"
-      icon_url: "https://www.looker.com/favicon.ico"
-      form_param: {
-        name: "Subject"
-        type: string
-        required:  yes
-        default: "Ops"
-      }
-      param: {
-        name: "Email"
-        value: "{{ products.bb_email._value }}"
 
-      }
-      form_param: {
-        name: "Description"
-        type: textarea
-        required: yes
-        default:
-        "{{value}} looks like they were a good brand that have recently churned. Can we reach out to them and see if we can retain them?
-
-        Sent by: {{_user_attributes.email}}."
-      }
-      form_param: {
-        name: "Recipient"
-        type: select
-        default: "Brand Primary Contact"
-        option: {
-          name: " {{ designers_designer.bb_email._value }}"
-          label: "Brand Primary Contact"
-        }
-        option: {
-          name: " {{ designers_designer.bb_email._value }}"
-          label: "Internal Contact"
-        }
-      }
-      form_param: {
-        name: "Send Me a Copy"
-        type: select
-        default: "yes"
-        option: {
-          name: "yes"
-          label: "yes"
-        }
-      }
-    }
 
 
 
@@ -125,6 +147,10 @@ view: products {
     type: string
     sql: 'brendan.buckley@looker.com' ;;
     tags: ["email"]
+  }
+
+  dimension: brand_contact_email {
+    sql: 'brand.contact@brand.com' ;;
   }
 
   dimension: bb_symbol {
