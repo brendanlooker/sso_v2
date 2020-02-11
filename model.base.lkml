@@ -43,6 +43,8 @@ explore: products {
 named_value_format: brendan {
   value_format: "0.000,,\" M\""
 }
+
+
 explore: order_items {
 
 

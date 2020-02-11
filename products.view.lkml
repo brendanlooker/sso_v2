@@ -16,10 +16,10 @@ view: products {
     action: {
       label: "Reach out to {{products.brand}} Brand Manager"
 #         url: "https://hooks.zapier.com/hooks/catch/5803443/ohvj9rp/"
-#       url: "https://hooks.zapier.com/hooks/catch/5803443/o2khmds/"
+      url: "https://hooks.zapier.com/hooks/catch/5803443/o2khmds/"
 #       url: "https://brendanlooker.free.beeceptor.com"
 #       url: "https://hooks.zapier.com/hooks/catch/5803443/ohv7c33/"
-      url: "https://hooks.zapier.com/hooks/catch/5803443/odyunat/"
+#       url: "https://hooks.zapier.com/hooks/catch/5803443/odyunat/"
       icon_url: "https://www.looker.com/favicon.ico"
 
 

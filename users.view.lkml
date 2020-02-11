@@ -1,8 +1,9 @@
+include: "*.view.lkml"
 view: users {
   sql_table_name: public.users ;;
 
 
-
+extends: [users_etd]
 
   dimension: id {
     primary_key: yes
@@ -17,6 +18,17 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+
+  dimension: arrow_right_down {
+    sql:1 ;;
+    html: <p style="text-align:centre;font-size:100px;">&#8628; </p>;;
+  }
+
+  dimension: arrow_down_left {
+    sql:1 ;;
+    html: <p style="text-align:centre;font-size:100px;">&#8626; </p>;;
   }
 
   dimension: age_tier {

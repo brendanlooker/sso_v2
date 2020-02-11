@@ -16,12 +16,6 @@ explore: customer_behaviour_fact_bla {
   group_label: "Events Brendan Test2"
   label: "customer_behaviour_fact"
 }
-explore: sleepcycle_demo {
-  group_label: "SleepCycle"
-  label: "SleepCycle123"
-  description: "SleepCycle Description"
-  view_label: "SleepCycle Data Points"
-}
 
 datagroup: my_data_group {
   max_cache_age: "24 hours"
