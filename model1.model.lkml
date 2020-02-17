@@ -26,4 +26,9 @@ explore: users_test_1 {}
 
 explore: users_insights {}
 
+datagroup: dv_datagroup {
+  max_cache_age: "12 hours"
+#   sql_trigger:select current_date;;
+}
+
 ###############################################
