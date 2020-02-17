@@ -8,7 +8,7 @@ include: "*.view"
 
 datagroup: dv_datagroup {
   max_cache_age: "12 hours"
-  sql_trigger:select 1;;
+  sql_trigger:select current_date;;
 }
 
 explore: users_test {
