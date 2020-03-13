@@ -2,9 +2,11 @@ view: inventory_items {
   sql_table_name: public.inventory_items ;;
 
   dimension: id {
+    label: "Inventory Id"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    view_label: "Products"
   }
 
   dimension: cost {

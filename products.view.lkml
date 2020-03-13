@@ -140,7 +140,7 @@ view: products {
     # <span style="font-size: 18px">{{ rendered_value }}</span>;;
 
 
-    drill_fields: [department,category, name]
+    drill_fields: [department,category, name, inventory_items.id]
   }
 
   dimension: bb_email {
