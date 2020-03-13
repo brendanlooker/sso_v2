@@ -8,7 +8,7 @@ include: "*.view"
 
 
 explore: users_test {
-  fields: [id,age,age_tier]
+  fields: [id,age,age_tier,country,city]
   persist_with: dv_datagroup
   sql_always_where: case when {% condition users_test.state_filter %} 'Arizona' {% endcondition %} then 1=1
     else {% condition users_test.state_filter %} state  {% endcondition %} end ;;
@@ -20,6 +20,7 @@ access_grant: my_access {
   user_attribute: state
 }
 explore: products {
+  fields: [brand_contact_email, department, category]
   view_name: products
   # fields:[products.my_set*]
   sql_always_where: ${brand} = 'Dockers' ;;
