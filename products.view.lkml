@@ -230,4 +230,7 @@ view: products {
   set: my_set {
     fields: [department,retail_price]
   }
+  set: product_set {
+    fields: [brand_contact_email, department, category,bb_email]
+  }
 }

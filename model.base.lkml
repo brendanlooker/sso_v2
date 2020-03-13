@@ -20,7 +20,7 @@ access_grant: my_access {
   user_attribute: state
 }
 explore: products {
-  fields: [brand_contact_email, department, category,bb_email]
+  fields: [product_set*]
 #   view_name: products
   # fields:[products.my_set*]
   sql_always_where: ${brand} = 'Dockers' ;;
