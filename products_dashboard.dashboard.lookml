@@ -286,8 +286,8 @@
       diff_2: area
     point_style: none
     series_colors: {}
-    show_value_labels: true
-    label_density: 25
+    show_value_labels: false
+    label_density: 1
     x_axis_scale: auto
     y_axis_combined: true
     show_null_points: true

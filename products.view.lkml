@@ -1,3 +1,4 @@
+
 view: products {
   sql_table_name: public.products ;;
 
@@ -7,7 +8,12 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+
+
+
   dimension: brand {
+    label: "brand"
+    skip_drill_filter: yes
     tags: ["brand"]
     type: string
     sql: ${TABLE}.brand ;;
@@ -143,6 +149,35 @@ view: products {
     drill_fields: [department,category, name, inventory_items.id]
   }
 
+
+  parameter: dummy_filter {
+#     hidden: yes
+    allowed_value: {label: "Dashboard 1" value: "d1"}
+    allowed_value: {label: "Dashboard 2" value: "d2"}
+    allowed_value: {label: "Dashboard 2" value: "d3"}
+  }
+  measure: html_header {
+    # hidden: yes
+    type: max
+    sql: 1 ;;
+    html:
+      <a type="button" target="_self" href="/dashboards/14?dummy_filter=d1&run=1"
+        class="btn {% if link contains "d1" %} btn btn-success {% else %} btn-secondary {% endif %} btn-lg"> Dashboard 1</a>
+      <a type="button" target="_self" href="/dashboards/15?dummy_filter=d2&run=1"
+        class="btn {% if link contains "d2" %} btn btn-success {% else %} btn-secondary {% endif %} btn-lg"> Dashboard 2</a>
+      <a type="button" target="_self" href="/dashboards/16?dummy_filter=d3&run=1"
+        class="btn {% if link contains "d3" %} btn btn-success {% else %} btn-secondary {% endif %} btn-lg"> Dashboard 3</a>
+    ;;
+    drill_fields: [html_header]
+  }
+
+  dimension: dash_filter {
+    sql: 1 ;;
+    html:
+    <a type="button" target="_self" href="/dashboards/21?Brand={{ value }}&Category={{ _filters['products.category'] | url_encode }}"class="btn btn-primary btn-lg btn-block"> VIEW STATS OVER TIME</a>  ;;
+  }
+
+
   dimension: bb_email {
     type: string
     sql: 'brendan.buckley@looker.com' ;;
@@ -177,6 +212,7 @@ view: products {
   }
 
   dimension: department {
+    label: "department"
     type: string
 #     sql: case when {% condition department_filter %}${TABLE}.department {% endcondition %} then ${TABLE}.department else NULL END;;
     sql: ${TABLE}.department;;
@@ -216,12 +252,14 @@ view: products {
   measure: max {
     type: max
     sql: ${category} ;;
+    value_format_name: bb_format
   }
 
   measure: product_count {
     type: count
     # drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
     drill_fields: [my_set*]
+    value_format_name: bb_format
   }
   # set: product_set {
   #   fields: [brand,department,category,name,retail_price]

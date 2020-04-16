@@ -29,6 +29,13 @@ view: order_items {
 
   }
 
+  dimension: bb_date {
+    type: date
+    sql: ${created_date} ;;
+    drill_fields: [created_month]
+
+  }
+
 
   dimension: days_in_filter {
     type: duration_day

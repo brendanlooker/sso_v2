@@ -42,6 +42,10 @@ named_value_format: brendan {
   value_format: "0.000,,\" M\""
 }
 
+named_value_format: bb_format {
+  value_format: " [>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";"
+}
+
 
 explore: order_items {
 

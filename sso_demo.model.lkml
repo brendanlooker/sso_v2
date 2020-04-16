@@ -10,6 +10,8 @@ include: "model.base.lkml"
 
 explore: users_facts_bkw {}
 
+
+
 datagroup: dv_datagroup {
   max_cache_age: "12 hours"
 #   sql_trigger:select current_date;;
