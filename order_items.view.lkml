@@ -128,8 +128,9 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price};;
-    value_format_name: usd_0
+    # value_format_name:bb
     description: "Total Sale Price"
+    html: ${{rendered_value}}M ;;
   }
 
   measure: average_sale_price {

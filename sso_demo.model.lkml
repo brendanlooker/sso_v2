@@ -12,6 +12,11 @@ explore: users_facts_bkw {}
 
 
 
+named_value_format: bb {
+  value_format: "[>=1000000]\"\"0.00,,\" M\";[<=-1000000]\"\"-0.00,,\" M\";[>=1000]\"\"0.00,\" K\";\"\"0.00"
+}
+
+
 datagroup: dv_datagroup {
   max_cache_age: "12 hours"
 #   sql_trigger:select current_date;;

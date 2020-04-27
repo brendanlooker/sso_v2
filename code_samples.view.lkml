@@ -58,3 +58,48 @@ view: code_samples {
     sql:  1 ;;
     }
   }
+
+
+
+  ################################################
+
+  # Beryl
+
+
+view: availability_snapshot {
+  derived_table: {
+    sql:
+      with generated_timestamp_seq as (
+      select * from
+      -- UNNEST(GENERATE_TIMESTAMP_ARRAY({% date_start date_range %}, {% date_end date_range %},  #### Funny results being returned - Need to investigate
+      UNNEST(GENERATE_TIMESTAMP_ARRAY('2019-07-04 00:00:00', current_timestamp,
+                                      INTERVAL 1 {% parameter availability_period %})) as timestamp
+      cross join (select distinct bike.module_id from master.availability join master.bike on availability.module_id = bike.module_id)
+      )
+      -- Build a table for all Bikes (module_id) for all datetime periods
+      -- Time period (i.e. day / hour / minute ) is set using the availability_period parameter and iniected into the SQL using liquid
+
+
+      -- Because a status will only exist for the timestamp period when the status was generated, we need to fill the missing status values for all other timestamps
+      -- Join the generated timestamp to master.availability and fill missing status values by using the first_value window function
+      select  timestamp,
+              status_fill as status,
+              scheme.name as scheme,
+              count(*) as count
+      from (
+        select  timestamp,
+              generated_timestamp_seq.module_id as seq_module_id,
+              availability.*,
+              first_value(status IGNORE NULLS) over (partition by generated_timestamp_seq.module_id order by timestamp desc ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) as status_fill
+        from generated_timestamp_seq
+        left join master.availability
+          on generated_timestamp_seq.timestamp = timestamp_trunc(availability.created_at,{% parameter availability_period %})
+          and generated_timestamp_seq.module_id = availability.module_id
+        )
+      join master.bike on seq_module_id = bike.module_id
+      join master.scheme on bike.scheme_id = scheme.id
+      where status_fill is not null
+      group by 1,2,3
+       ;;
+  }}
+

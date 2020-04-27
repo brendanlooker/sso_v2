@@ -297,6 +297,7 @@ extends: [users_etd]
   }
 
   dimension: state {
+    description: "Bla Bla Bla"
     type: string
     sql: ${TABLE}.state;;
     drill_fields: [city]
