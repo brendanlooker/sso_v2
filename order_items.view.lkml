@@ -208,7 +208,21 @@ view: order_items {
   measure: order_item_count {
     type: count
     drill_fields: [detail*]
+
+    html:
+    <span style="font-size: 14px">{{rendered_value}}</span>
+    {% if item_return_rate._value > 0 %}
+    <span style="color: green"> ▴ {{ item_return_rate._rendered_value }}</span>
+    {% elsif item_return_rate._value < 0 %}
+    <span style="color: tomato"> ▾ {{ item_return_rate._rendered_value }}</span>
+    {% else %}
+    <span style="color: tomato"> ▾ {{ item_return_rate._rendered_value }}</span>
+    {% endif %};;
   }
+
+
+
+
 
   parameter: period_over_period {
     description: "Period-over-Period Options"

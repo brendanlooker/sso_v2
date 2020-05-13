@@ -22,6 +22,20 @@ view: code_samples {
 
   # html: <p style="color: black; font-size: 100px; font-weight: bolder"> {{ rendered_value }} </p> ;;
 
+  # html:
+  # <span style="font-size: 14px">{{rendered_value}}</span>
+  # {% if item_return_rate._value > 0 %}
+  # <span style="color: green"> ▴ {{ item_return_rate._rendered_value }}</span>
+  # {% elsif item_return_rate._value < 0 %}
+  # <span style="color: tomato"> ▾ {{ item_return_rate._rendered_value }}</span>
+  # {% else %}
+  # <span style="color: tomato"> ▾ {{ item_return_rate._rendered_value }}</span>
+  # {% endif %};;
+
+
+
+
+
   #### Liquid #######
 
 
@@ -102,4 +116,3 @@ view: availability_snapshot {
       group by 1,2,3
        ;;
   }}
-

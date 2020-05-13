@@ -8,7 +8,9 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
-
+ filter: my_test_date {
+   type: date
+ }
 
 
   dimension: brand {
@@ -260,6 +262,8 @@ view: products {
     # drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
     drill_fields: [my_set*]
     # value_format_name: bb_format
+
+
   }
   # set: product_set {
   #   fields: [brand,department,category,name,retail_price]
