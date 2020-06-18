@@ -116,3 +116,73 @@ view: availability_snapshot {
       group by 1,2,3
        ;;
   }}
+
+ #### Date concat & html rendering
+
+# Aifora
+
+  # dimension: period_date {
+  #   type: string
+  #   sql:  concat (cast({% date_start transaction_date %} as string),' , ', cast({% date_end transaction_date %} as string));;
+  #   html: Zeitraum <br> {{ rendered_value | split: "," | first | date: "%m/%Y" }} - {{ rendered_value | split: "," | last | date: "%m/%Y" }};;
+  # }
+
+  # Final Veersion
+
+  # dimension: period_date {
+  #   type: string
+  #   sql:  concat (cast({% date_start transaction_date %} as string),' , ', cast({% date_end transaction_date %} as string));;
+  #   html: <div class="vis">
+  #         <div class="vis-single-value" style="background-color: #d6d6d6">
+  #         <p style="color: #707070; font-size: 20px; font-weight: bolder">
+  #         Zeitraum <br> {{ rendered_value | split: "," | first | date: "%m/%Y" }} - {{ rendered_value | split: "," | last | date: "%m/%Y" }}
+  #         </p>
+  #         </div>
+  #         </div>;;
+  # }
+
+
+
+
+  # dimension: brand {
+  #   label: "brand"
+  #   skip_drill_filter: yes
+  #   tags: ["brand"]
+  #   type: string
+  #   sql: ${TABLE}.brand ;;
+
+  # ############### DRILL TO A GOOGLE SEARCH, PASSING IN THE VALUE CLICKED ON AS A FILTER (if appropriate)
+
+  #   link: {
+  #     label: "Google {{ value }}"
+  #     url: "http://www.google.com/search?q={{ value | url_encode }}"
+  #     icon_url: "http://google.com/favicon.ico"
+  #   }
+
+  #   ############### DRILL TO A Dashboard, PASSING IN THE VALUE CLICKED ON AS A FILTER (if appropriate)
+
+  #   link: {
+  #     label: "Drill to Product Dashboard"
+  #     url: "/dashboards/21?Brand={{ value }}&Category={{ _filters['products.category'] | url_encode }}"
+  #     icon_url: "https://looker.com/favicon.ico"
+  #   }
+
+  #   ############### DRILL TO A LOOK, PASSING IN THE VALUE CLICKED ON AS A FILTER (if appropriate)
+
+  #   link: {
+  #     label: "Drill to Product Look"
+  #     url: "/looks/44??&f[products.brand]={{ value | url_encode }}" # Path to Look content
+  #     icon_url: "https://looker.com/favicon.ico"
+  #   }
+
+  #   ############### DRILL TO AN EXPLORE, SPECIFYING THE FIELDS & FILTERS TO BE PRE-POPULATED (if necessary)
+
+  #   link: {
+  #     label: "Drill to Product Explore"
+  #     url: "/explore/sso_demo/order_items?fields=products.brand,products.category,products.cost,products.department,products.distribution_center_id,products.product_count&limit=100"
+  #     icon_url: "https://looker.com/favicon.ico"
+  #   }
+
+
+  #   drill_fields: [department,category, name, inventory_items.id]
+  # }

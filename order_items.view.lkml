@@ -29,6 +29,11 @@ view: order_items {
 
   }
 
+  dimension: created_mth {
+    type: yesno
+    sql: ${created_month} ;;
+  }
+
   dimension: bb_date {
     type: date
     sql: ${created_date} ;;
@@ -130,7 +135,8 @@ view: order_items {
     sql: ${sale_price};;
     # value_format_name:bb
     description: "Total Sale Price"
-    html: ${{rendered_value}}M ;;
+#     html: ${{rendered_value}}M ;;
+   value_format_name: usd_0
   }
 
   measure: average_sale_price {

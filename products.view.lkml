@@ -19,6 +19,7 @@ view: products {
     tags: ["brand"]
     type: string
     sql: ${TABLE}.brand ;;
+#     order_by_field: order_items.total_sales
 
 
     action: {

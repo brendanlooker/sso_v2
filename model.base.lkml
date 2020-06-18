@@ -19,12 +19,12 @@ access_grant: my_access {
   allowed_values: ["New York"]
   user_attribute: state
 }
-explore: products {
-#   fields: [products.product_set*]
-#   view_name: products
-  # fields:[products.my_set*]
-  sql_always_where: ${brand} = 'Dockers' ;;
-  }
+# explore: products {
+# #   fields: [products.product_set*]
+# #   view_name: products
+#   # fields:[products.my_set*]
+#   sql_always_where: ${brand} = 'Dockers' ;;
+#   }
 
 
 # explore: my_entended_explore {
