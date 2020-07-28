@@ -26,8 +26,10 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.created_at ;;
+    # order_by_field: date_order
 
   }
+
 
   dimension: created_mth {
     type: yesno

@@ -5,7 +5,10 @@ include: "*.view"
 # include: "*.dashboard"
 
 # datagroup: bb_ramp_case_study_default_datagroup {
-
+datagroup: dv_datagroup {
+  max_cache_age: "12 hours"
+#   sql_trigger:select current_date;;
+}
 
 explore: users_test {
   fields: [id,age,age_tier,country,city]
@@ -13,6 +16,8 @@ explore: users_test {
   sql_always_where: case when {% condition users_test.state_filter %} 'Arizona' {% endcondition %} then 1=1
     else {% condition users_test.state_filter %} state  {% endcondition %} end ;;
 }
+
+explore: users_test_1 {}
 
 
 access_grant: my_access {
@@ -110,6 +115,7 @@ explore: order_items {
 #   }
   label: "1) Order Items"
   group_label: "SSO Demo"
+  always_filter: {filters:[users.state: "New York"]}
 }
 
 # explore: order_items {}

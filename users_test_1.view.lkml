@@ -11,10 +11,7 @@ view: users_test_1 {
        AS "users_test.is_new_user"
       FROM public.users  AS users_test
 
-      WHERE case when 1=1 -- no filter on 'users_test.state_filter'
-       then 1=1
-          else 1=1 -- no filter on 'users_test.state_filter'
-       end
+      WHERE {% condition users_test_state %} users_test.state {% endcondition %}
       GROUP BY 1,2,3,4,5
       ORDER BY 1
       LIMIT 500
